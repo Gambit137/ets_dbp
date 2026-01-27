@@ -129,7 +129,7 @@
         </div>
 
         <?php
-        $servername = "mysql-database-v84g000ok0s40g4wwk4ccg48";
+        $servername = "10.0.1.7";
         $username   = "koncar";
         $dbname     = "ETS_Baza";
         $password   = getenv('MOJA_TAJNA_SIFRA');
