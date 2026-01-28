@@ -30,48 +30,48 @@
             line-height: 1.5;
         }
 
-        header {
+        nav {
             background: #ffffff;
             border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .header-content {
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
-            gap: 20px;
-            margin-bottom: 1rem;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
-        .header-logo {
-            height: 60px; 
-            width: auto; 
+        .nav-logo {
+            height: 50px;
+            width: auto;
         }
 
-        h1 { margin: 0; font-size: 2rem; font-weight: 800; color: #1e293b; letter-spacing: -0.025em; }
+        h1 { margin: 0; font-size: 1.5rem; font-weight: 800; color: #1e293b; letter-spacing: -0.025em; }
         
+        .rules-section {
+            padding: 2rem 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
         .rules-box {
             background: #fffbeb;
             border: 1px solid #fcd34d;
             color: #92400e;
-            padding: 1rem;
-            margin-top: 0.5rem;
-            max-width: 800px;
+            padding: 1rem 2rem;
             border-radius: 8px;
             font-size: 0.95rem;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
         .code-snippet {
-            background: rgba(255,255,255,0.5);
-            padding: 2px 6px;
+            background: rgba(255,255,255,0.6);
+            padding: 2px 8px;
             border-radius: 4px;
             font-family: var(--font-mono);
             font-weight: bold;
@@ -154,22 +154,23 @@
 </head>
 <body>
 
-<header>
-    <div class="header-content">
-        <img src="logo.png" alt="Koncar Logo" class="header-logo">
-        <h1>KONCAR LOBBY</h1>
-    </div>
+<nav>
+    <img src="logo.png" alt="Logo" class="nav-logo">
+    <h1>KONCAR LOBBY</h1>
+</nav>
+
+<div class="rules-section">
     <div class="rules-box">
-        <strong>PRAVILA:</strong> Svaki učenik kreira svoju <u>tablicu</u> koristeći format: 
+        ⚠️ <strong>PRAVILA:</strong> Svaki učenik kreira svoju <u>tablicu</u> koristeći format: 
         <span class="code-snippet">ime_prezime_naziv</span> (npr. <span class="code-snippet">ivan_horvat_igre</span>).
     </div>
-</header>
+</div>
 
 <div class="container">
     
     <div class="column">
         <div class="section-header">
-            <span class="section-title">Zadane Baze</span>
+            <span class="section-title">📂 Zadane Baze</span>
             <span class="badge badge-blue">SELECT ONLY</span>
         </div>
 
@@ -223,7 +224,7 @@
 
     <div class="column">
         <div class="section-header">
-            <span class="section-title">Vaše Baze</span>
+            <span class="section-title">🚀 Vaše Baze</span>
             <span class="badge badge-green">OSTALE NAREDBE</span>
         </div>
 
