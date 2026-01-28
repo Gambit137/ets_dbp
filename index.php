@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="5">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQL Workshop Environment</title>
+    <title>Koncar Lobby</title>
     <style>
         :root {
-            --bg-body: #f3f4f6;
+            --bg-body: #f8fafc;
             --bg-card: #ffffff;
-            --text-main: #111827;
-            --text-muted: #6b7280;
-            --border-color: #e5e7eb;
-            --primary: #2563eb;
-            --success: #059669;
-            --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --primary: #0284c7;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', Consolas, monospace;
         }
 
         * { box-sizing: border-box; }
@@ -30,93 +31,137 @@
         }
 
         header {
-            background: var(--bg-card);
+            background: #ffffff;
             border-bottom: 1px solid var(--border-color);
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
         }
 
-        h1 { margin: 0; font-size: 1.25rem; font-weight: 600; }
-        .status-dot { height: 8px; width: 8px; background-color: var(--success); border-radius: 50%; display: inline-block; margin-right: 8px; }
-        .server-status { font-size: 0.875rem; color: var(--text-muted); display: flex; align-items: center; }
-
-        .container {
-            max-width: 1600px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 1rem;
         }
 
-        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } }
+        .header-logo {
+            height: 60px; 
+            width: auto; 
+        }
+
+        h1 { margin: 0; font-size: 2rem; font-weight: 800; color: #1e293b; letter-spacing: -0.025em; }
+        
+        .rules-box {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            color: #92400e;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            max-width: 800px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .code-snippet {
+            background: rgba(255,255,255,0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-weight: bold;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 1200px) { .container { grid-template-columns: 1fr; } }
 
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--border-color);
         }
 
-        .section-title { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--text-muted); }
-        .badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
-        .badge-primary { background-color: #dbeafe; color: #1e40af; }
-        .badge-success { background-color: #d1fae5; color: #065f46; }
+        .section-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .badge { font-size: 0.75rem; padding: 4px 10px; border-radius: 99px; font-weight: 600; text-transform: uppercase; }
+        .badge-blue { background-color: #e0f2fe; color: #0369a1; }
+        .badge-green { background-color: #dcfce7; color: #15803d; }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            transition: transform 0.2s;
         }
+        
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
 
         .card-header {
-            background-color: #f9fafb;
-            padding: 0.75rem 1rem;
+            background-color: #f8fafc;
+            padding: 1rem 1.5rem;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .table-name { font-family: var(--font-mono); font-size: 0.875rem; font-weight: 600; color: var(--text-main); }
-        .record-count { font-size: 0.75rem; color: var(--text-muted); }
+        .table-name { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: #334155; }
+        .record-count { font-size: 0.8rem; color: var(--text-muted); background: #f1f5f9; padding: 2px 8px; border-radius: 4px; }
 
         .table-responsive { overflow-x: auto; }
         
-        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
         
         th {
             text-align: left;
-            padding: 0.75rem 1rem;
-            background-color: #f9fafb;
+            padding: 0.75rem 1.5rem;
+            background-color: #f8fafc;
             color: var(--text-muted);
             font-weight: 600;
             font-size: 0.75rem;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
             border-bottom: 1px solid var(--border-color);
         }
 
-        td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); color: var(--text-main); }
+        td { padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); color: var(--text-main); }
         tr:last-child td { border-bottom: none; }
-        tr:hover { background-color: #f9fafb; }
+        tr:hover { background-color: #f1f5f9; }
 
-        .empty-state { padding: 2rem; text-align: center; color: var(--text-muted); font-style: italic; font-size: 0.875rem; }
-        .error-state { padding: 1rem; color: #b91c1c; background-color: #fef2f2; font-size: 0.875rem; border: 1px solid #fecaca; border-radius: 6px; margin-bottom: 1rem; }
+        .empty-state { padding: 3rem; text-align: center; color: var(--text-muted); font-style: italic; }
+        .error-state { padding: 1rem; color: #b91c1c; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; margin: 1rem; text-align: center; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>SQL Workshop</h1>
-    <div class="server-status">
-        <span class="status-dot"></span> System Online
+    <div class="header-content">
+        <img src="logo.png" alt="Koncar Logo" class="header-logo">
+        <h1>KONCAR LOBBY</h1>
+    </div>
+    <div class="rules-box">
+        <strong>PRAVILA:</strong> Svaki učenik kreira svoju <u>tablicu</u> koristeći format: 
+        <span class="code-snippet">ime_prezime_naziv</span> (npr. <span class="code-snippet">ivan_horvat_igre</span>).
     </div>
 </header>
 
@@ -124,8 +169,8 @@
     
     <div class="column">
         <div class="section-header">
-            <span class="section-title">Reference Datasets</span>
-            <span class="badge badge-primary">READ ONLY</span>
+            <span class="section-title">Zadane Baze</span>
+            <span class="badge badge-blue">SELECT ONLY</span>
         </div>
 
         <?php
@@ -134,17 +179,12 @@
         $dbname     = "ETS_Baza";
         $password   = getenv('MOJA_TAJNA_SIFRA');
 
-        if ($password === false) {
-            die("<div class='error-state'>Configuration Error: Environment variable missing.</div>");
-        }
+        if ($password === false) die("<div class='error-state'>Greška: Nije postavljena Environment Varijabla u Coolifyju!</div>");
 
         $conn = new mysqli($servername, $username, $password, $dbname);
-        
-        if ($conn->connect_error) {
-            die("<div class='error-state'>Database Connection Failed: " . $conn->connect_error . "</div>");
-        }
+        if ($conn->connect_error) die("<div class='error-state'>Greška spajanja na MySQL: " . $conn->connect_error . "</div>");
 
-        function renderTable($conn, $tableName, $displayName) {
+        function renderTable($conn, $tableName) {
             $check = $conn->query("SHOW TABLES LIKE '$tableName'");
             if($check->num_rows == 0) return;
 
@@ -153,87 +193,81 @@
             
             echo "<div class='card'>";
             echo "<div class='card-header'>";
-            echo "<span class='table-name'>$displayName</span>";
-            echo "<span class='record-count'>" . ($result ? $result->num_rows : 0) . " records</span>";
+            echo "<span class='table-name'>$tableName</span>";
+            echo "<span class='record-count'>" . ($result ? $result->num_rows : 0) . " redova</span>";
             echo "</div>";
             echo "<div class='table-responsive'>";
             
             if ($result && $result->num_rows > 0) {
                 echo "<table><thead><tr>";
                 $fields = $result->fetch_fields();
-                foreach ($fields as $field) {
-                    echo "<th>" . $field->name . "</th>";
-                }
+                foreach ($fields as $field) echo "<th>" . $field->name . "</th>";
                 echo "</tr></thead><tbody>";
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>";
-                    foreach($row as $val) {
-                        echo "<td>" . htmlspecialchars($val) . "</td>";
-                    }
+                    foreach($row as $val) echo "<td>" . htmlspecialchars($val) . "</td>";
                     echo "</tr>";
                 }
                 echo "</tbody></table>";
             } else {
-                echo "<div class='empty-state'>No data available.</div>";
+                echo "<div class='empty-state'>Tablica je prazna.</div>";
             }
             echo "</div></div>";
         }
 
-        renderTable($conn, 'master_igre', 'public.master_igre');
-        renderTable($conn, 'master_izdavaci', 'public.master_izdavaci');
-        renderTable($conn, 'master_prodaja', 'public.master_prodaja');
+        renderTable($conn, 'master_igre');
+        renderTable($conn, 'master_izdavaci');
+        renderTable($conn, 'master_prodaja');
         ?>
     </div>
 
     <div class="column">
         <div class="section-header">
-            <span class="section-title">Student Workspaces</span>
-            <span class="badge badge-success">SANDBOX</span>
+            <span class="section-title">Vaše Baze</span>
+            <span class="badge badge-green">OSTALE NAREDBE</span>
         </div>
 
         <?php
-        $tables = $conn->query("SHOW TABLES LIKE 'ucenik_%'");
+        $tables = $conn->query("SHOW TABLES WHERE Tables_in_$dbname NOT LIKE 'master_%'");
         
+        $hasTables = false;
+
         if ($tables && $tables->num_rows > 0) {
             while ($row = $tables->fetch_array()) {
                 $tblName = $row[0];
-                $studentName = ucfirst(str_replace("ucenik_", "", $tblName));
+                $hasTables = true;
                 
                 try {
                     $res = $conn->query("SELECT * FROM $tblName LIMIT 10");
                     
                     echo "<div class='card'>";
                     echo "<div class='card-header'>";
-                    echo "<span class='table-name'>$tblName</span>";
-                    echo "<span class='badge badge-success'>Active</span>";
+                    echo "<span class='table-name' style='color:#0284c7'>$tblName</span>";
+                    echo "<span class='badge badge-green' style='font-size:0.6rem'>SANDBOX</span>";
                     echo "</div>";
                     echo "<div class='table-responsive'>";
                     
                     if ($res && $res->num_rows > 0) {
                         echo "<table><thead><tr>";
                         $fields = $res->fetch_fields();
-                        foreach ($fields as $field) {
-                            echo "<th>" . $field->name . "</th>";
-                        }
+                        foreach ($fields as $field) echo "<th>" . $field->name . "</th>";
                         echo "</tr></thead><tbody>";
                         while($data = $res->fetch_assoc()) {
                             echo "<tr>";
-                            foreach($data as $v) {
-                                echo "<td>" . htmlspecialchars($v) . "</td>";
-                            }
+                            foreach($data as $v) echo "<td>" . htmlspecialchars($v) . "</td>";
                             echo "</tr>";
                         }
                         echo "</tbody></table>";
                     } else {
-                        echo "<div class='empty-state'>Table created. Waiting for data insertion.</div>";
+                        echo "<div class='empty-state'>Tablica kreirana. Čekam podatke (INSERT)...</div>";
                     }
                     echo "</div></div>";
-                } catch (Exception $e) {
-                    // Silent fail
-                }
+                } catch (Exception $e) { }
             }
-        } else {
-            echo "<div class='card'><div class='empty-state'>No active student tables found.<br>Execute CREATE TABLE statement to begin.</div></div>";
+        } 
+        
+        if (!$hasTables) {
+            echo "<div class='card' style='border-style:dashed'><div class='empty-state'>Nema učeničkih tablica.<br>Napravite <code>CREATE TABLE ime_prezime...</code></div></div>";
         }
         ?>
     </div>
