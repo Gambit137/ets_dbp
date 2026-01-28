@@ -156,21 +156,14 @@
 
 <nav>
     <img src="logo.png" alt="Logo" class="nav-logo">
-    <h1>KONCAR LOBBY</h1>
+    <h1>Končar Lobby</h1>
 </nav>
-
-<div class="rules-section">
-    <div class="rules-box">
-        ⚠️ <strong>PRAVILA:</strong> Svaki učenik kreira svoju <u>tablicu</u> koristeći format: 
-        <span class="code-snippet">ime_prezime_naziv</span> (npr. <span class="code-snippet">ivan_horvat_igre</span>).
-    </div>
-</div>
 
 <div class="container">
     
     <div class="column">
         <div class="section-header">
-            <span class="section-title">📂 Zadane Baze</span>
+            <span class="section-title">Zadane Baze</span>
             <span class="badge badge-blue">SELECT ONLY</span>
         </div>
 
@@ -224,7 +217,7 @@
 
     <div class="column">
         <div class="section-header">
-            <span class="section-title">🚀 Vaše Baze</span>
+            <span class="section-title">Vaše Baze</span>
             <span class="badge badge-green">OSTALE NAREDBE</span>
         </div>
 
